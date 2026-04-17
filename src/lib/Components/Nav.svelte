@@ -31,10 +31,12 @@
 
 	function toggleProjects() {
 		projectsOpen = !projectsOpen;
+		downloadsOpen = (false);
 	}
 
 	function toggleDownloads() {
 		downloadsOpen = !downloadsOpen;
+		projectsOpen = (false);
 	}
 </script>
 
@@ -88,7 +90,7 @@
 				</button>
 
 				{#if projectsOpen}
-				<ul class="dropdown">
+				<ul class="dropdown space-y-4">
 			
 					<li>
 						<a
@@ -96,7 +98,7 @@
 							class="text-xl font-bold transition-colors duration-200
 							   {page.url.pathname === "/Projects/Professional" 
 								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#333] hover:text-black'}"
+								: 'text-[#62594F] hover:text-black'}"
 								onclick={toggleProjects}
 						>
 						Professional
@@ -109,7 +111,7 @@
 							class="text-xl font-bold transition-colors duration-200
 							   {page.url.pathname === "/Projects/Personal" 
 								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#333] hover:text-black'}"
+								: 'text-[#62594F] hover:text-black'}"
 								onclick={toggleProjects}
 						>
 						Personal
@@ -127,31 +129,31 @@
 				</button>
 
 				{#if downloadsOpen}
-				<ul class="dropdown">
+				<ul class="dropdown space-y-4">
 			
 					<li>
 						<a
 							href={asset("/Downloads/resume.pdf")}
-							class="text-xl font-bold transition-colors duration-200
+							class="text-xl font-bold transition-colors text-center duration-200
 							   {page.url.pathname === "/Projects/Professional" 
 								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#333] hover:text-black'}"
+								: 'text-[#62594F] hover:text-black'}"
 								onclick={toggleDownloads}
 						>
-						Resumé <span class="text-xs">(PDF Download)</span>
+						Resumé <span class="block text-xs leading-none mt-0.5">(PDF)</span>
 						</a>
 					</li>
 
 					<li>
 						<a
-							href={resolve("/Projects/Personal")}
-							class="text-xl font-bold transition-colors duration-200
-							   {page.url.pathname === "/Projects/Personal" 
+							href={asset("/Downloads/resume.pdf")}
+							class="text-xl font-bold transition-colors text-center leading-4 duration-200
+							   {page.url.pathname === "/Projects/Professional" 
 								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#333] hover:text-black'}"
+								: 'text-[#62594F] hover:text-black'}"
 								onclick={toggleDownloads}
 						>
-						Personal
+						Work History <span class="block text-xs leading-none mt-0.5">(PDF)</span>
 						</a>
 					</li>
 				</ul>
@@ -205,7 +207,7 @@
 						class="text-xl font-bold transition-colors duration-200
 							   {page.url.pathname === "/Projects/Personal" 
 								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#333] hover:text-black'}"
+								: 'text-[#62594F] hover:text-black'}"
 						onclick={closeMenu}
 					>
 						Projects
@@ -218,7 +220,7 @@
 						class="text-xl font-bold transition-colors duration-200
 							   {page.url.pathname === "/About" 
 								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#333] hover:text-black'}"
+								: 'text-[#62594F] hover:text-black'}"
 						onclick={closeMenu}
 					>
 						About
@@ -253,9 +255,10 @@
 		position: absolute;
 		top: 100%;
 		left: 0;
+		display: flex;
 		flex-direction: column;
-		background: bg-color;
-		border: 1px solid #333333;
+		background: #F3EADC;
+		border: 1px solid #62594F;
 		padding: 0.5rem;
 	}
 
