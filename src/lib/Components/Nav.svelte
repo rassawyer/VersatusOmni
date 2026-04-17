@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import { page } from '$app/state';
-    import { resolve } from '$app/paths';
+    import { asset, resolve } from '$app/paths';
 
 
 	let isOpen = $state(false);
 	let isMobile = $state(false);
 	let projectsOpen = $state(false);
+	let downloadsOpen = $state(false);
 
 	// Detect screen size for mobile menu toggle
 	onMount(() => {
@@ -30,7 +31,10 @@
 
 	function toggleProjects() {
 		projectsOpen = !projectsOpen;
-		console.log('projectsOpen:', projectsOpen);
+	}
+
+	function toggleDownloads() {
+		downloadsOpen = !downloadsOpen;
 	}
 </script>
 
@@ -50,6 +54,30 @@
 					>
 						Home
 					</a>
+			</div>
+
+			<div>
+				<a
+						href={resolve("/About")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/About" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+					>
+						About
+					</a>
+			</div>
+
+			<div>
+				<a
+					href={resolve("/Certs")}
+					class="text-xl font-bold transition-colors duration-200
+					   {page.url.pathname === "/Certs" 
+							? 'text-black underline decoration-2 underline-offset-4' 
+							: 'text-[#333] hover:text-black'}"
+				>
+				Certs
+				</a>
 			</div>
 
 			<div class="item">
@@ -91,28 +119,43 @@
 				{/if}
 			</div>
 
-			<div>
-				<a
-						href={resolve("/About")}
-						class="text-xl font-bold transition-colors duration-200
-							   {page.url.pathname === "/About" 
+			<div class="item">
+				<button
+				onclick={toggleDownloads}
+				aria-haspopup="true">
+					<a href="#top" class="text-[#333] hover:text-black text-xl font-bold transition-colors duration-200">Downloads</a>
+				</button>
+
+				{#if downloadsOpen}
+				<ul class="dropdown">
+			
+					<li>
+						<a
+							href={asset("/Downloads/resume.pdf")}
+							class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects/Professional" 
 								? 'text-black underline decoration-2 underline-offset-4' 
 								: 'text-[#333] hover:text-black'}"
-					>
-						About
-					</a>
-			</div>
+								onclick={toggleDownloads}
+						>
+						Resumé <span class="text-xs">(PDF Download)</span>
+						</a>
+					</li>
 
-			<div>
-				<a
-					href={resolve("/Certs")}
-					class="text-xl font-bold transition-colors duration-200
-					   {page.url.pathname === "/Certs" 
-							? 'text-black underline decoration-2 underline-offset-4' 
-							: 'text-[#333] hover:text-black'}"
-				>
-				Certs
-				</a>
+					<li>
+						<a
+							href={resolve("/Projects/Personal")}
+							class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects/Personal" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+								onclick={toggleDownloads}
+						>
+						Personal
+						</a>
+					</li>
+				</ul>
+				{/if}
 			</div>
             {/if}
 
