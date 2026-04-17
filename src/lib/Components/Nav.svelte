@@ -3,26 +3,10 @@
     import { page } from '$app/state';
     import { resolve } from '$app/paths';
 
-    // Define the allowed routes explicitly
-	type Route = '/' | '/Projects' | '/Projects/Professional' | '/Projects/Personal' | '/Certs';
-
-	interface NavLink {
-		id: string;
-        href: Route;
-		label: string;
-	}
-
-	// Navigation Links
-	const links: NavLink[] = [
-		{ label: 'Home', href: '/', id: 'home' },
-		{ label: 'Projects', href: '/Projects', id: 'projects' },
-        { label: 'Professional', href: '/Projects/Professional', id: 'professional'},
-		{ label: 'Personal', href: '/Projects/Personal', id: 'personal' },
-		{ label: 'Certs', href: '/Certs', id: 'certs' }
-	]as const;
 
 	let isOpen = $state(false);
 	let isMobile = $state(false);
+	let projectsOpen = $state(false);
 
 	// Detect screen size for mobile menu toggle
 	onMount(() => {
@@ -43,27 +27,92 @@
 	function closeMenu() {
 		isOpen = false;
 	}
+
+	function toggleProjects() {
+		projectsOpen = !projectsOpen;
+		console.log('projectsOpen:', projectsOpen);
+	}
 </script>
 
-<nav class="fixed top-0 w-full bg-[#c1a882]/95 backdrop-blur-md border-b border-[#333]/10 z-50 shadow-sm">
+<nav class="sticky top-0 w-full max-w-3/4 bg-[#c1a882]/95 backdrop-blur-md border-b border-[#333]/10 shadow-sm">
 	<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between h-16">
 
 			<!-- Desktop Menu -->
              {#if !isMobile}
-			<div class="hidden md:flex md:items-center md:space-x-8">
-				{#each links as link (link.id)}
-					<a
-						href={resolve(link.href)}
-						class="text-sm font-medium transition-colors duration-200
-							   {page.url.pathname === link.href 
+			<div>
+				<a
+						href={resolve("/")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/" 
 								? 'text-black underline decoration-2 underline-offset-4' 
 								: 'text-[#333] hover:text-black'}"
-						onclick={closeMenu}
 					>
-						{link.label}
+						Home
 					</a>
-				{/each}
+			</div>
+
+			<div class="item">
+				<button
+				onclick={toggleProjects}
+				aria-haspopup="true">
+					<a href="#top" class="text-[#333] hover:text-black text-xl font-bold transition-colors duration-200">Projects</a>
+				</button>
+
+				{#if projectsOpen}
+				<ul class="dropdown">
+			
+					<li>
+						<a
+							href={resolve("/Projects/Professional")}
+							class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects/Professional" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+								onclick={toggleProjects}
+						>
+						Professional
+						</a>
+					</li>
+
+					<li>
+						<a
+							href={resolve("/Projects/Personal")}
+							class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects/Personal" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+								onclick={toggleProjects}
+						>
+						Personal
+						</a>
+					</li>
+				</ul>
+				{/if}
+			</div>
+
+			<div>
+				<a
+						href={resolve("/About")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/About" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+					>
+						About
+					</a>
+			</div>
+
+			<div>
+				<a
+					href={resolve("/Certs")}
+					class="text-xl font-bold transition-colors duration-200
+					   {page.url.pathname === "/Certs" 
+							? 'text-black underline decoration-2 underline-offset-4' 
+							: 'text-[#333] hover:text-black'}"
+				>
+				Certs
+				</a>
 			</div>
             {/if}
 
@@ -94,19 +143,77 @@
 	{#if isOpen}
 		<div class="md:hidden bg-[#c1a882] border-t border-[#333]/10 absolute w-full left-0 top-16 shadow-lg">
 			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-				{#each links as link (link.id)}
-					<a
-						href={resolve(link.href)}
-						class="block px-3 py-2 rounded-md text-base font-medium 
-							   {page.url.pathname === link.href 
-								? 'bg-[#333]/10 text-black font-bold' 
-								: 'text-[#333] hover:bg-[#333]/5 hover:text-black'}"
+				<div class="hidden md:flex md:items-center md:space-x-8">
+				<a
+						href={resolve("/")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
 						onclick={closeMenu}
 					>
-						{link.label}
+						Home
 					</a>
-				{/each}
+			</div>
+
+			<div class="hidden md:flex md:items-center md:space-x-8">
+				<a
+						href={resolve("/Projects")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+						onclick={closeMenu}
+					>
+						Projects
+					</a>
+			</div>
+
+			<div class="hidden md:flex md:items-center md:space-x-8">
+				<a
+						href={resolve("/About")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/About" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+						onclick={closeMenu}
+					>
+						About
+					</a>
+			</div>
+
+			<div class="hidden md:flex md:items-center md:space-x-8">
+				<a
+						href={resolve("/Certs")}
+						class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Certs" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#333] hover:text-black'}"
+						onclick={closeMenu}
+					>
+						Certs
+					</a>
+			</div>
 			</div>
 		</div>
 	{/if}
 </nav>
+
+
+<style>
+.item {
+		position: relative;
+		padding-bottom: 0.0rem;
+	}
+
+	.dropdown {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		flex-direction: column;
+		background: bg-color;
+		border: 1px solid #333333;
+		padding: 0.5rem;
+	}
+
+</style>

@@ -5,10 +5,17 @@
 
 </script>
 
+<div>
+<div class="justify-center">
 <!-- Logo / Brand -->
-<a href={resolve("/")} class="flex-shrink-0 flex group" aria-label="Logo">
+<a href={resolve("/")} class="shrink-0 flex justify-center group" aria-label="Logo">
 	<span class="">
-		<enhanced:img src={Logo}></enhanced:img>
+		<enhanced:img src={Logo} class="h-[10em]"></enhanced:img>
 	</span>
 </a>
+</div>
+
+<div class="flex justify-center">
 <Nav />
+</div>
+</div>

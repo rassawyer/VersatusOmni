@@ -9,4 +9,6 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<main class="pt-4">
 {@render children()}
+</main>
