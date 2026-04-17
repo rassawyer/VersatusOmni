@@ -160,7 +160,7 @@
 				<a
 						href={resolve("/Projects")}
 						class="text-xl font-bold transition-colors duration-200
-							   {page.url.pathname === "/Projects" 
+							   {page.url.pathname === "/Projects/Personal" 
 								? 'text-black underline decoration-2 underline-offset-4' 
 								: 'text-[#333] hover:text-black'}"
 						onclick={closeMenu}

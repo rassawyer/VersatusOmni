@@ -1,7 +1,6 @@
 <script lang="ts">
     import Nav from '$lib/Components/Nav.svelte';
     import { resolve } from '$app/paths';
-    import Logo from '$lib/assets/images/logo.png';
 
 </script>
 
@@ -10,7 +9,7 @@
 <!-- Logo / Brand -->
 <a href={resolve("/")} class="shrink-0 flex justify-center group" aria-label="Logo">
 	<span class="">
-		<enhanced:img src={Logo} class="h-[10em]"></enhanced:img>
+		<enhanced:img src='/src/lib/assets/images/logo.png' class="h-[10em] w-auto" alt="logo"/>
 	</span>
 </a>
 </div>
