@@ -82,12 +82,13 @@
 				</a>
 			</div>
 
-			<div class="item">
-				<button
-				onclick={toggleProjects}
+			<div class="item"
+				onmouseenter={() => projectsOpen = true}
+				onmouseleave={() => projectsOpen = false}
+				role="menuitem"
+				tabindex=0
 				aria-haspopup="true">
-					<a href="#top" class="text-[#333] hover:text-black text-xl font-bold transition-colors duration-200">Projects</a>
-				</button>
+					<a href="#top" class="text-[#554747] hover:text-black text-xl font-bold transition-colors duration-200">Projects</a>
 
 				{#if projectsOpen}
 				<ul class="dropdown space-y-4">
@@ -121,12 +122,13 @@
 				{/if}
 			</div>
 
-			<div class="item">
-				<button
-				onclick={toggleDownloads}
+			<div class="item"
+				onmouseenter={() => downloadsOpen = true}
+				onmouseleave={() => downloadsOpen = false}
+				role="menuitem"
+				tabindex=0
 				aria-haspopup="true">
 					<a href="#top" class="text-[#333] hover:text-black text-xl font-bold transition-colors duration-200">Downloads</a>
-				</button>
 
 				{#if downloadsOpen}
 				<ul class="dropdown space-y-4">
@@ -203,19 +205,6 @@
 
 			<div class="hidden md:flex md:items-center md:space-x-8">
 				<a
-						href={resolve("/Projects")}
-						class="text-xl font-bold transition-colors duration-200
-							   {page.url.pathname === "/Projects/Personal" 
-								? 'text-black underline decoration-2 underline-offset-4' 
-								: 'text-[#62594F] hover:text-black'}"
-						onclick={closeMenu}
-					>
-						Projects
-					</a>
-			</div>
-
-			<div class="hidden md:flex md:items-center md:space-x-8">
-				<a
 						href={resolve("/About")}
 						class="text-xl font-bold transition-colors duration-200
 							   {page.url.pathname === "/About" 
@@ -224,6 +213,7 @@
 						onclick={closeMenu}
 					>
 						About
+					
 					</a>
 			</div>
 
@@ -241,6 +231,84 @@
 			</div>
 			</div>
 		</div>
+
+		<div class="item">
+				<button
+				onclick={toggleProjects}
+				aria-haspopup="true">
+					<a href="#top" class="text-[#333] hover:text-black text-xl font-bold transition-colors duration-200">Projects</a>
+				</button>
+
+				{#if projectsOpen}
+				<ul class="dropdown space-y-4">
+			
+					<li>
+						<a
+							href={resolve("/Projects/Professional")}
+							class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects/Professional" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#62594F] hover:text-black'}"
+								onclick={toggleProjects}
+						>
+						Professional
+						</a>
+					</li>
+
+					<li>
+						<a
+							href={resolve("/Projects/Personal")}
+							class="text-xl font-bold transition-colors duration-200
+							   {page.url.pathname === "/Projects/Personal" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#62594F] hover:text-black'}"
+								onclick={toggleProjects}
+						>
+						Personal
+						</a>
+					</li>
+				</ul>
+				{/if}
+			</div>
+
+			<div class="item">
+				<button
+				onclick={toggleDownloads}
+				aria-haspopup="true">
+					<a href="#top" class="text-[#333] hover:text-black text-xl font-bold transition-colors duration-200">Downloads</a>
+				</button>
+
+				{#if downloadsOpen}
+				<ul class="dropdown space-y-4">
+			
+					<li>
+						<a
+							href={asset("/Downloads/resume.pdf")}
+							class="text-xl font-bold transition-colors text-center duration-200
+							   {page.url.pathname === "/Projects/Professional" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#62594F] hover:text-black'}"
+								onclick={toggleDownloads}
+						>
+						Resumé <span class="block text-xs leading-none mt-0.5">(PDF)</span>
+						</a>
+					</li>
+
+					<li>
+						<a
+							href={asset("/Downloads/resume.pdf")}
+							class="text-xl font-bold transition-colors text-center leading-4 duration-200
+							   {page.url.pathname === "/Projects/Professional" 
+								? 'text-black underline decoration-2 underline-offset-4' 
+								: 'text-[#62594F] hover:text-black'}"
+								onclick={toggleDownloads}
+						>
+						Work History <span class="block text-xs leading-none mt-0.5">(PDF)</span>
+						</a>
+					</li>
+				</ul>
+				{/if}
+			</div>
 	{/if}
 </nav>
 
